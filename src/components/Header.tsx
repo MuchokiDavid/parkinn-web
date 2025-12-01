@@ -20,19 +20,8 @@ export function Header() {
     navigate('/');
   };
 
-  const getDashboardRoute = () => {
-    if (!user) return '/';
-    switch (user.role) {
-      case 'admin':
-        return '/admin';
-      case 'host':
-        return '/host';
-      case 'guest':
-        return '/guest';
-      default:
-        return '/';
-    }
-  };
+  console.log(user)
+
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -58,17 +47,17 @@ export function Header() {
 
         <div className="flex items-center space-x-2">
           <ThemeToggle />
-          
+
           {isAuthenticated && user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="flex items-center space-x-2">
                   <User className="h-4 w-4" />
-                  <span className="hidden md:inline">{user.name}</span>
+                  <span className="hidden md:inline">{user.username}</span>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
-                <DropdownMenuItem onClick={() => navigate(getDashboardRoute())}>
+                <DropdownMenuItem onClick={() => navigate("/dashboard")}>
                   Dashboard
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
