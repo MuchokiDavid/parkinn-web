@@ -36,6 +36,12 @@ import AdminUsers from "./pages/dashboard/admin/AdminUsers";
 import AdminListings from "./pages/dashboard/admin/AdminListings";
 import AdminReports from "./pages/dashboard/admin/AdminReports";
 
+// Motorist pages
+import MotoristOverview from "./pages/dashboard/motorist/MotoristOverview";
+import MotoristBookings from "./pages/dashboard/motorist/MotoristBookings";
+import MotoristSaved from "./pages/dashboard/motorist/MotoristSaved";
+import MotoristProfile from "./pages/dashboard/motorist/MotoristProfile";
+
 import Overview from "./pages/dashboard/Overview";
 
 const queryClient = new QueryClient();
@@ -61,70 +67,10 @@ const App = () => (
           <Route path="/auth/not-logged-in" element={<NotLoggedIn />} />
           <Route path="/auth/unauthorised" element={<Unauthorised />} />
 
-          {/* <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute allowedRoles={['GUEST']}>
-                <DashboardLayout />
-              </ProtectedRoute>
-            }
-          >
-            <Route index element={<Navigate to="/guest/bookings" replace />} />
-            <Route path="bookings" element={<MyBookings />} />
-            <Route path="saved" element={<SavedSpots />} />
-            <Route path="profile" element={<Profile />} />
-          </Route> */}
-
-          {/* Guest Dashboard Routes */}
-          {/* <Route
-            path="/guest"
-            element={
-              <ProtectedRoute allowedRoles={['GUEST']}>
-                <DashboardLayout />
-              </ProtectedRoute>
-            }
-          >
-            <Route index element={<Navigate to="/guest/bookings" replace />} />
-            <Route path="bookings" element={<MyBookings />} />
-            <Route path="saved" element={<SavedSpots />} />
-            <Route path="profile" element={<Profile />} />
-          </Route> */}
-
-          {/* Host Dashboard Routes */}
-          {/* <Route
-            path="/host"
-            element={
-              <ProtectedRoute allowedRoles={['host']}>
-                <DashboardLayout />
-              </ProtectedRoute>
-            }
-          >
-            <Route index element={<Navigate to="/host/overview" replace />} />
-            <Route path="overview" element={<HostOverview />} />
-            <Route path="listings" element={<MyListings />} />
-            <Route path="calendar" element={<HostCalendar />} />
-            <Route path="bookings" element={<HostBookings />} />
-            <Route path="earnings" element={<Earnings />} />
-          </Route> */}
-
-          {/* Admin Dashboard Routes */}
-          {/* <Route
-            path="/admin"
-            element={
-              <ProtectedRoute allowedRoles={['admin']}>
-                <DashboardLayout />
-              </ProtectedRoute>
-            }
-          >
-            <Route index element={<Navigate to="/admin/overview" replace />} />
-            <Route path="overview" element={<AdminOverview />} />
-            <Route path="users" element={<AdminUsers />} />
-            <Route path="listings" element={<AdminListings />} />
-            <Route path="reports" element={<AdminReports />} />
-          </Route> */}
 
 
 
+          {/* Dashboard Routes */}
           <Route
             path="/dashboard"
             element={
@@ -134,10 +80,34 @@ const App = () => (
             }
           >
             <Route index element={<Overview />} />
-            {/* <Route path="bookings" element={<MyBookings />} /> */}
-            <Route path="saved" element={<SavedSpots />} />
-            <Route path="profile" element={<Profile />} />
+
+            {/* Admin Routes */}
+            {/* <Route path="admin/overview" element={<ProtectedRoute allowedRoles={['ADMIN']}><AdminOverview /></ProtectedRoute>} /> */}
+            <Route path="admin/users" element={<ProtectedRoute allowedRoles={['ADMIN']}><AdminUsers /></ProtectedRoute>} />
+            <Route path="admin/listings" element={<ProtectedRoute allowedRoles={['ADMIN']}><AdminListings /></ProtectedRoute>} />
+            <Route path="admin/reports" element={<ProtectedRoute allowedRoles={['ADMIN']}><AdminReports /></ProtectedRoute>} />
+
+            {/* Host Routes */}
+            {/* <Route path="host/overview" element={<ProtectedRoute allowedRoles={['HOST']}><HostOverview /></ProtectedRoute>} /> */}
+            <Route path="host/listings" element={<ProtectedRoute allowedRoles={['HOST']}><MyListings /></ProtectedRoute>} />
+            <Route path="host/calendar" element={<ProtectedRoute allowedRoles={['HOST']}><HostCalendar /></ProtectedRoute>} />
+            <Route path="host/bookings" element={<ProtectedRoute allowedRoles={['HOST']}><HostBookings /></ProtectedRoute>} />
+            <Route path="host/earnings" element={<ProtectedRoute allowedRoles={['HOST']}><Earnings /></ProtectedRoute>} />
+
+            {/* Guest Routes */}
+            <Route path="guest/bookings" element={<ProtectedRoute allowedRoles={['GUEST']}><MyBookings /></ProtectedRoute>} />
+            <Route path="guest/saved" element={<ProtectedRoute allowedRoles={['GUEST']}><SavedSpots /></ProtectedRoute>} />
+            <Route path="guest/profile" element={<ProtectedRoute allowedRoles={['GUEST']}><Profile /></ProtectedRoute>} />
+
+            {/* Motorist Routes */}
+            {/* <Route path="motorist/overview" element={<ProtectedRoute allowedRoles={['MOTORIST']}><MotoristOverview /></ProtectedRoute>} /> */}
+            <Route path="motorist/bookings" element={<ProtectedRoute allowedRoles={['MOTORIST']}><MotoristBookings /></ProtectedRoute>} />
+            <Route path="motorist/saved" element={<ProtectedRoute allowedRoles={['MOTORIST']}><MotoristSaved /></ProtectedRoute>} />
+            <Route path="motorist/profile" element={<ProtectedRoute allowedRoles={['MOTORIST']}><MotoristProfile /></ProtectedRoute>} />
+
           </Route>
+
+
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

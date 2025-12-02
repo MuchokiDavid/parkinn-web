@@ -1,4 +1,4 @@
-import { Home, Calendar, Heart, User, LayoutDashboard, Building2, DollarSign, Users, FileText, BarChart3, Bell } from "lucide-react";
+import { Home, Calendar, Heart, User, LayoutDashboard, Building2, DollarSign, Users, FileText, BarChart3, Bell, LogOut, ExternalLink } from "lucide-react";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import {
   Sidebar,
@@ -16,41 +16,42 @@ import {
 import { useAuthStore } from "@/stores/authStore";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 
 const guestItems = [
-  { title: "My Bookings", url: "/guest/bookings", icon: Calendar },
-  { title: "Saved Spots", url: "/guest/saved", icon: Heart },
-  { title: "Profile", url: "/guest/profile", icon: User },
+  { title: "My Bookings", url: "/dashboard/guest/bookings", icon: Calendar },
+  { title: "Saved Spots", url: "/dashboard/guest/saved", icon: Heart },
+  { title: "Profile", url: "/dashboard/guest/profile", icon: User },
 ];
 
 const hostItems = [
-  { title: "Overview", url: "/host/overview", icon: LayoutDashboard },
-  { title: "My Listings", url: "/host/listings", icon: Building2 },
-  { title: "Calendar", url: "/host/calendar", icon: Calendar },
-  { title: "Bookings", url: "/host/bookings", icon: Calendar },
-  { title: "Earnings", url: "/host/earnings", icon: DollarSign },
-  { title: "Profile", url: "/host/profile", icon: User },
+  { title: "Overview", url: "/dashboard", icon: LayoutDashboard },
+  { title: "My Listings", url: "/dashboard/host/listings", icon: Building2 },
+  { title: "Calendar", url: "/dashboard/host/calendar", icon: Calendar },
+  { title: "Bookings", url: "/dashboard/host/bookings", icon: Calendar },
+  { title: "Earnings", url: "/dashboard/host/earnings", icon: DollarSign },
+  { title: "Profile", url: "/dashboard/host/profile", icon: User },
 ];
 
 const adminItems = [
-  { title: "Overview", url: "/admin/overview", icon: LayoutDashboard },
-  { title: "Users", url: "/admin/users", icon: Users },
-  { title: "Listings", url: "/admin/listings", icon: Building2 },
-  { title: "Reports", url: "/admin/reports", icon: BarChart3 },
-  { title: "Profile", url: "/admin/profile", icon: User },
+  { title: "Overview", url: "/dashboard/admin/overview", icon: LayoutDashboard },
+  { title: "Users", url: "/dashboard/admin/users", icon: Users },
+  { title: "Listings", url: "/dashboard/admin/listings", icon: Building2 },
+  { title: "Reports", url: "/dashboard/admin/reports", icon: BarChart3 },
+  { title: "Profile", url: "/dashboard/admin/profile", icon: User },
 ];
 
 const motoristItems = [
-  { title: "Overview", url: "/motorist/overview", icon: LayoutDashboard },
-  { title: "My Bookings", url: "/motorist/bookings", icon: Calendar },
-  { title: "Saved Spots", url: "/motorist/saved", icon: Heart },
-  { title: "Profile", url: "/motorist/profile", icon: User },
+  { title: "Overview", url: "/dashboard", icon: LayoutDashboard },
+  { title: "My Bookings", url: "/dashboard/motorist/bookings", icon: Calendar },
+  { title: "Saved Spots", url: "/dashboard/motorist/saved", icon: Heart },
+  { title: "Profile", url: "/dashboard/motorist/profile", icon: User },
 ]
 
 function DashboardSidebar() {
   const { state } = useSidebar();
   const location = useLocation();
-  const { user } = useAuthStore();
+  const { user, logout } = useAuthStore();
 
   const items = user?.role === 'GUEST' ? guestItems
     : user?.role === 'HOST' ? hostItems
@@ -78,6 +79,26 @@ function DashboardSidebar() {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+        <SidebarGroup className="mt-auto">
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <NavLink to="/">
+                    <Home className="h-4 w-4" />
+                    {state !== "collapsed" && <span>Public Site</span>}
+                  </NavLink>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton onClick={logout}>
+                  <LogOut className="h-4 w-4" />
+                  {state !== "collapsed" && <span>Logout</span>}
+                </SidebarMenuButton>
+              </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
