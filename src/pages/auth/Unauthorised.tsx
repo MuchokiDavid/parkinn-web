@@ -14,7 +14,7 @@ export default function Unauthorised() {
       navigate('/auth');
       return;
     }
-    
+
     const dashboardRoute = user.role === 'admin' ? '/admin' : user.role === 'host' ? '/host' : '/guest';
     navigate(dashboardRoute);
   };
@@ -22,7 +22,7 @@ export default function Unauthorised() {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      
+
       <main className="flex-1 flex items-center justify-center p-4 bg-gradient-subtle">
         <Card className="w-full max-w-md shadow-elegant">
           <CardHeader className="text-center">
@@ -34,12 +34,12 @@ export default function Unauthorised() {
               You don't have permission to access this page
             </CardDescription>
           </CardHeader>
-          
+
           <CardContent className="space-y-3">
-            <Button onClick={handleGoToDashboard} className="w-full">
+            <Button onClick={()=>navigate("/dashboard")} className="w-full">
               Go to My Dashboard
             </Button>
-            
+
             <Button onClick={() => navigate('/')} variant="outline" className="w-full">
               Back to Home
             </Button>

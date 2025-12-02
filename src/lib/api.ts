@@ -18,7 +18,7 @@ export const api = {
   searchListings: async (query?: string): Promise<Listing[]> => {
     await delay(500);
     if (!query) return mockListings;
-    
+
     const lowerQuery = query.toLowerCase();
     return mockListings.filter(
       listing =>
@@ -82,7 +82,7 @@ export const getListings = async (filters?: { query?: string }): Promise<Listing
   return mockListings;
 };
 
-export const getUserBookings = async (userId: string) => {
+export const getUserBookings = async (userId: string|number) => {
   await delay(400);
   return mockBookings.filter(booking => booking.userId === userId).map(booking => {
     const listing = mockListings.find(l => l.id === booking.listingId);

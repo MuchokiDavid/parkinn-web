@@ -10,14 +10,14 @@ interface ProtectedRouteProps {
 
 export function ProtectedRoute({ children, allowedRoles }: ProtectedRouteProps) {
   const { isAuthenticated, user } = useAuthStore();
-
+// console.log(allowedRoles)
   if (!isAuthenticated) {
     return <NotLoggedIn />;
   }
 
-  // if (allowedRoles && user && !allowedRoles.includes(user.role)) {
-  //   return <Unauthorised />;
-  // }
+  if (allowedRoles && user && !allowedRoles.includes(user.role)) {
+    return <Unauthorised />;
+  }
 
   return <>{children}</>;
 }

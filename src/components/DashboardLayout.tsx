@@ -1,4 +1,4 @@
-import { Home, Calendar, Heart, User, LayoutDashboard, Building2, DollarSign, Users, FileText, BarChart3 } from "lucide-react";
+import { Home, Calendar, Heart, User, LayoutDashboard, Building2, DollarSign, Users, FileText, BarChart3, Bell } from "lucide-react";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import {
   Sidebar,
@@ -14,6 +14,8 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { useAuthStore } from "@/stores/authStore";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { Button } from "@/components/ui/button";
 
 const guestItems = [
   { title: "My Bookings", url: "/guest/bookings", icon: Calendar },
@@ -27,6 +29,7 @@ const hostItems = [
   { title: "Calendar", url: "/host/calendar", icon: Calendar },
   { title: "Bookings", url: "/host/bookings", icon: Calendar },
   { title: "Earnings", url: "/host/earnings", icon: DollarSign },
+  { title: "Profile", url: "/host/profile", icon: User },
 ];
 
 const adminItems = [
@@ -34,15 +37,24 @@ const adminItems = [
   { title: "Users", url: "/admin/users", icon: Users },
   { title: "Listings", url: "/admin/listings", icon: Building2 },
   { title: "Reports", url: "/admin/reports", icon: BarChart3 },
+  { title: "Profile", url: "/admin/profile", icon: User },
 ];
+
+const motoristItems = [
+  { title: "Overview", url: "/motorist/overview", icon: LayoutDashboard },
+  { title: "My Bookings", url: "/motorist/bookings", icon: Calendar },
+  { title: "Saved Spots", url: "/motorist/saved", icon: Heart },
+  { title: "Profile", url: "/motorist/profile", icon: User },
+]
 
 function DashboardSidebar() {
   const { state } = useSidebar();
   const location = useLocation();
   const { user } = useAuthStore();
-  
-  const items = user?.role === 'guest' ? guestItems 
-    : user?.role === 'host' ? hostItems 
+
+  const items = user?.role === 'GUEST' ? guestItems
+    : user?.role === 'HOST' ? hostItems
+    : user?.role === 'MOTORIST' ? motoristItems
     : adminItems;
 
   const isActive = (path: string) => location.pathname === path;
@@ -52,7 +64,7 @@ function DashboardSidebar() {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>
-            {user?.role === 'guest' ? 'Guest' : user?.role === 'host' ? 'Host' : 'Admin'} Dashboard
+            {user?.role === 'GUEST' ? 'Guest' : user?.role === 'HOST' ? 'Host' : 'Admin'} Dashboard
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
@@ -74,7 +86,7 @@ function DashboardSidebar() {
   );
 }
 
-export function DashboardLayout() {
+export function DashboardLayout({ children }: { children?: React.ReactNode }) {
   return (
     <SidebarProvider>
       <div className="flex min-h-screen w-full">
@@ -84,10 +96,17 @@ export function DashboardLayout() {
             <div className="flex h-14 items-center gap-4 px-6">
               <SidebarTrigger />
               <div className="flex-1" />
+              <div className="flex items-center gap-2">
+                <Button variant="ghost" size="icon" className="relative">
+                  <Bell className="h-5 w-5" />
+                  <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-primary text-[10px] font-medium text-primary-foreground flex items-center justify-center">3</span>
+                </Button>
+                <ThemeToggle />
+              </div>
             </div>
           </header>
           <div className="p-6">
-            <Outlet />
+            {children?? <Outlet />}
           </div>
         </main>
       </div>

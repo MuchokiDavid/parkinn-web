@@ -10,7 +10,7 @@ export default function MyBookings() {
   const { user } = useAuthStore();
   const { data: bookings, isLoading } = useQuery({
     queryKey: ['user-bookings', user?.id],
-    queryFn: () => getUserBookings(user?.id || ''),
+    queryFn: () => getUserBookings(user?.id ),
     enabled: !!user?.id,
   });
 

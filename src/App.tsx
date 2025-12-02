@@ -19,22 +19,24 @@ import ListingDetail from "./pages/ListingDetail";
 import NotFound from "./pages/NotFound";
 
 // Guest pages
-import MyBookings from "./pages/guest/MyBookings";
-import SavedSpots from "./pages/guest/SavedSpots";
-import Profile from "./pages/guest/Profile";
+import MyBookings from "./pages/dashboard/guest/MyBookings";
+import SavedSpots from "./pages/dashboard/guest/SavedSpots";
+import Profile from "./pages/dashboard/guest/Profile";
 
 // Host pages
-import HostOverview from "./pages/host/HostOverview";
-import MyListings from "./pages/host/MyListings";
-import HostCalendar from "./pages/host/HostCalendar";
-import HostBookings from "./pages/host/HostBookings";
-import Earnings from "./pages/host/Earnings";
+import HostOverview from "./pages/dashboard/host/HostOverview";
+import MyListings from "./pages/dashboard/host/MyListings";
+import HostCalendar from "./pages/dashboard/host/HostCalendar";
+import HostBookings from "./pages/dashboard/host/HostBookings";
+import Earnings from "./pages/dashboard/host/Earnings";
 
 // Admin pages
-import AdminOverview from "./pages/admin/AdminOverview";
-import AdminUsers from "./pages/admin/AdminUsers";
-import AdminListings from "./pages/admin/AdminListings";
-import AdminReports from "./pages/admin/AdminReports";
+import AdminOverview from "./pages/dashboard/admin/AdminOverview";
+import AdminUsers from "./pages/dashboard/admin/AdminUsers";
+import AdminListings from "./pages/dashboard/admin/AdminListings";
+import AdminReports from "./pages/dashboard/admin/AdminReports";
+
+import Overview from "./pages/dashboard/Overview";
 
 const queryClient = new QueryClient();
 
@@ -59,10 +61,10 @@ const App = () => (
           <Route path="/auth/not-logged-in" element={<NotLoggedIn />} />
           <Route path="/auth/unauthorised" element={<Unauthorised />} />
 
-                    <Route
+          {/* <Route
             path="/dashboard"
             element={
-              <ProtectedRoute allowedRoles={['guest']}>
+              <ProtectedRoute allowedRoles={['GUEST']}>
                 <DashboardLayout />
               </ProtectedRoute>
             }
@@ -71,13 +73,13 @@ const App = () => (
             <Route path="bookings" element={<MyBookings />} />
             <Route path="saved" element={<SavedSpots />} />
             <Route path="profile" element={<Profile />} />
-          </Route>
+          </Route> */}
 
           {/* Guest Dashboard Routes */}
-          <Route
+          {/* <Route
             path="/guest"
             element={
-              <ProtectedRoute allowedRoles={['guest']}>
+              <ProtectedRoute allowedRoles={['GUEST']}>
                 <DashboardLayout />
               </ProtectedRoute>
             }
@@ -86,10 +88,10 @@ const App = () => (
             <Route path="bookings" element={<MyBookings />} />
             <Route path="saved" element={<SavedSpots />} />
             <Route path="profile" element={<Profile />} />
-          </Route>
+          </Route> */}
 
           {/* Host Dashboard Routes */}
-          <Route
+          {/* <Route
             path="/host"
             element={
               <ProtectedRoute allowedRoles={['host']}>
@@ -103,10 +105,10 @@ const App = () => (
             <Route path="calendar" element={<HostCalendar />} />
             <Route path="bookings" element={<HostBookings />} />
             <Route path="earnings" element={<Earnings />} />
-          </Route>
+          </Route> */}
 
           {/* Admin Dashboard Routes */}
-          <Route
+          {/* <Route
             path="/admin"
             element={
               <ProtectedRoute allowedRoles={['admin']}>
@@ -119,8 +121,23 @@ const App = () => (
             <Route path="users" element={<AdminUsers />} />
             <Route path="listings" element={<AdminListings />} />
             <Route path="reports" element={<AdminReports />} />
-          </Route>
+          </Route> */}
 
+
+
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <DashboardLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route index element={<Overview />} />
+            {/* <Route path="bookings" element={<MyBookings />} /> */}
+            <Route path="saved" element={<SavedSpots />} />
+            <Route path="profile" element={<Profile />} />
+          </Route>
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
